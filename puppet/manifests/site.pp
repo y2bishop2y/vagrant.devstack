@@ -46,11 +46,21 @@ MYSQL_PASSWORD=admin
 RABBIT_PASSWORD=admin
 SERVICE_PASSWORD=admin
 SERVICE_TOKEN=admin
+
 APACHE_USER=vagrant
 API_RATE_LIMIT=False
-HOST_IP=192.168.5.44
-FLOATING_RANGE=192.168.5.224/27
-IMAGE_URLS+='http://uec-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img'"
+HOST_IP=192.168.5.201
+
+VLAN_INTERFACE=eth1
+FLAT_INTERFACE=eth1
+GUEST_INTERFACE=eth1
+PUBLIC_INTERFACE=eth2
+FIXED_RANGE=192.168.6.0/24
+FIXED_NETWORK_SIZE=256
+FLOATING_RANGE=10.10.1.0/24  
+
+
+"
 
   file { "/home/vagrant/work/devstack/localrc":
     content => "$localrc_cnt",
@@ -58,6 +68,18 @@ IMAGE_URLS+='http://uec-images.ubuntu.com/precise/current/precise-server-cloudim
     group   => "vagrant",
     owner   => "vagrant",
   }
+
+  #run stack.sh as current user (vagrant)
+  exec { "/home/vagrant/work/devstack/stack.sh":
+    cwd     	=> "/home/vagrant/work/devstack",
+    group	=> "vagrant",
+    user	=> "vagrant",
+    logoutput	=> on_failure,
+    timeout	=> 0, # stack.sh takes time!
+    require 	=> File["/home/vagrant/work/devstack/localrc"],
+  }
+
+
   
 
 }
