@@ -16,3 +16,34 @@ the VM.
 * `git submodule init`
 * `get submodule udpate`
 * `vagrant up`
+
+
+## Create first VM 
+
+* Go to `http://192.168.5.201` and login  
+* Go to `http://192.168.5.201/project/` and select the "demo" project
+* Go to `http://192.168.5.201/project/access_and_security` 
+** Select the `Security Groups` tab and click on `Edit Rules` for the default group
+** Add a rule, protocl TCP from Port 22 To Port 22, and keep all the default values ( this will open the SSH port for VM )
+* Upload a CERT to Nova
+** make sure to source all the env variables in your shell 
+
+```
+export OS_TENANT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=admin
+export OS_AUTH_URL=http://192.168.5.201:5000/v2.0/
+export SERVICE_ENDPOINT=http://192.168.5.201:35357/v2.0/
+export SERVICE_TOKEN=ADMIN
+```
+** `nova keypair-add {certName} > {certName}.pem`
+** `chmod 600 {certName}`
+* Go to `http://192.168.5.201/project/instances/`
+** Click "Launch Instance"
+** Select "cirros-xxx" in the Image field 
+** Choose instance name
+** Keep the "m1.tiny" flavor
+** In "Access & Security" select the created {certName} 
+** Press "Launch"
+
+* Go back to shell and should be able to ssh using `ssh -i {certName}.pem -l cirros {ipAddress}`
