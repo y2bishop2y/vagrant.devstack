@@ -57,9 +57,12 @@ GUEST_INTERFACE=eth1
 PUBLIC_INTERFACE=eth2
 FIXED_RANGE=192.168.6.0/24
 FIXED_NETWORK_SIZE=256
-FLOATING_RANGE=10.10.1.0/24  
-
-
+FLOATING_RANGE=10.10.1.0/24
+  
+#=========================
+#-------------------------
+SYSLOG=True
+SCREEN_LOGDIR=/opt/stack/logs/screen
 "
 
   file { "/home/vagrant/work/devstack/localrc":
