@@ -30,6 +30,10 @@ node /^devstack/ {
     ensure => 'present'
   }
 
+  package { 'pm-utils':
+    ensure => 'present'
+  }
+    
 
   # Clone the devstack repo
   vcsrepo { "/home/vagrant/work/devstack":
@@ -73,14 +77,14 @@ SCREEN_LOGDIR=/opt/stack/logs/screen
   }
 
   #run stack.sh as current user (vagrant)
-  exec { "/home/vagrant/work/devstack/stack.sh":
-    cwd     	=> "/home/vagrant/work/devstack",
-    group	=> "vagrant",
-    user	=> "vagrant",
-    logoutput	=> on_failure,
-    timeout	=> 0, # stack.sh takes time!
-    require 	=> File["/home/vagrant/work/devstack/localrc"],
-  }
+#  exec { "/home/vagrant/work/devstack/stack.sh":
+#    cwd     	=> "/home/vagrant/work/devstack",
+#    group	=> "vagrant",
+#    user	=> "vagrant",
+#    logoutput	=> on_failure,
+#    timeout	=> 0, # stack.sh takes time!
+#    require 	=> File["/home/vagrant/work/devstack/localrc"],
+#  }
 
 
   
