@@ -43,6 +43,7 @@ export SERVICE_TOKEN=ADMIN
 ```Bash
 nova keypair-add ${certName} > {certName}.pem
 chmod 600 ${certName}
+nova boot --image cirros-0.3.0-x86_64 --flavor m1.small --key_name test my-first-server
 ```
 
 ### Create first instance
