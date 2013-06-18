@@ -67,6 +67,18 @@ FLOATING_RANGE=10.10.1.0/24
 #-------------------------
 SYSLOG=True
 SCREEN_LOGDIR=/opt/stack/logs/screen
+
+#=========================
+# Enable HEAT 
+#-------------------------
+ENABLED_SERVICES+=,heat,h-api,h-api-cfn,h-api-cw,h-eng
+## It would also be useful to automatically download and register VM images that Heat can launch.
+# 64bit image (~660MB)
+IMAGE_URLS+=",http://fedorapeople.org/groups/heat/prebuilt-jeos-images/F17-x86_64-cfntools.qcow2"
+# 32bit image (~640MB)
+IMAGE_URLS+=",http://fedorapeople.org/groups/heat/prebuilt-jeos-images/F17-i386-cfntools.qcow2"
+
+  
 "
 
   file { "/home/vagrant/work/devstack/localrc":
